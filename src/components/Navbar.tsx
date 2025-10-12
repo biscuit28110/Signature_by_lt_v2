@@ -27,7 +27,13 @@ export default function Navbar() {
       <div className="mx-auto flex h-24 w-full max-w-6xl items-center px-6 md:h-28 md:px-8 lg:px-12">
         {/* Logo */}
         <div className="flex flex-1 items-center">
-          <LogoNavbar />
+          <Link
+            href="/"
+            aria-label="Retour à l'accueil"
+            className="inline-flex items-center"
+          >
+            <LogoNavbar />
+          </Link>
         </div>
 
         {/* Navigation principale (affichée à partir du desktop) */}
