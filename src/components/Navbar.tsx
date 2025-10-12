@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="hidden flex-1 justify-center lg:flex">
           <nav className="flex items-center gap-12 text-sm font-semibold text-white xl:gap-16 xl:text-base">
             <Link
-              href="/#accueil"
+              href="/"
               className="relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#d9d9d9] after:transition-all after:duration-300 hover:after:w-full"
             >
               Accueil
