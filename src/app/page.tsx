@@ -5,7 +5,7 @@ import HeroBanner from "@/components/HeroBanner";
 import Testimonials from "@/components/Testimonials";
 
 export const metadata: Metadata = {
-  title: "Accueil",
+  title: "Signature by LT",
 };
 
 export default function Home() {
