@@ -87,7 +87,7 @@ export default function Navbar() {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden animate-fadeIn space-y-6 bg-[#184370]/95 py-8 text-center text-white backdrop-blur-sm"
+          className="lg:hidden animate-fadeIn space-y-6 bg-[#184370]/95 py-8 text-center text-white backdrop-blur-sm"
         >
           <Link
             href="/#accueil"
