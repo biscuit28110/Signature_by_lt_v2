@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import LogoNavbar from "./Images";
@@ -32,41 +33,41 @@ export default function Navbar() {
         {/* Navigation principale (affichée à partir du desktop) */}
         <div className="hidden flex-1 justify-center lg:flex">
           <nav className="flex items-center gap-12 text-sm font-semibold text-white xl:gap-16 xl:text-base">
-            <a
+            <Link
               href="/#accueil"
               className="relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#d9d9d9] after:transition-all after:duration-300 hover:after:w-full"
             >
               Accueil
-            </a>
-            <a
+            </Link>
+            <Link
               href="/about"
               className="relative whitespace-nowrap after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#d9d9d9] after:transition-all after:duration-300 hover:after:w-full"
             >
               À propos
-            </a>
-            <a
+            </Link>
+            <Link
               href="/prestations"
               className="relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#d9d9d9] after:transition-all after:duration-300 hover:after:w-full"
             >
               Prestations
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact"
               className="relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#d9d9d9] after:transition-all after:duration-300 hover:after:w-full"
             >
               Contact
-            </a>
+            </Link>
           </nav>
         </div>
 
         {/* Bouton Réserver */}
         <div className="hidden flex-1 justify-end lg:flex">
-          <a
+          <Link
             href="/reservation"
             className="rounded-full bg-gradient-to-r from-[#f7f7f7] via-[#d9d9d9] to-[#b5b5b5] px-6 py-2.5 text-sm font-semibold text-[#15233b] shadow-md shadow-[#d9d9d9]/40 transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-[#d9d9d9]/60 lg:px-8 lg:py-3 lg:text-base"
           >
             Réserver
-          </a>
+          </Link>
         </div>
 
         {/* Bouton burger (mobile) */}
@@ -88,45 +89,45 @@ export default function Navbar() {
           id="mobile-menu"
           className="md:hidden animate-fadeIn space-y-6 bg-[#184370]/95 py-8 text-center text-white backdrop-blur-sm"
         >
-          <a
+          <Link
             href="/#accueil"
             onClick={() => setMenuOpen(false)}
             className="block text-lg font-medium transition hover:text-gray-300"
           >
             Accueil
-          </a>
+          </Link>
           <hr className="mx-auto w-2/3 border-t border-gray-300/40" />
-          <a
+          <Link
             href="/prestations"
             onClick={() => setMenuOpen(false)}
             className="block text-lg font-medium transition hover:text-gray-300"
           >
             Prestations
-          </a>
+          </Link>
           <hr className="mx-auto w-2/3 border-t border-gray-300/40" />
-          <a
+          <Link
             href="/about"
             onClick={() => setMenuOpen(false)}
             className="block text-lg font-medium transition hover:text-gray-300"
           >
             À propos
-          </a>
+          </Link>
           <hr className="mx-auto w-2/3 border-t border-gray-300/40" />
-          <a
+          <Link
             href="/contact"
             onClick={() => setMenuOpen(false)}
             className="block text-lg font-medium transition hover:text-gray-300"
           >
             Contact
-          </a>
+          </Link>
           <hr className="mx-auto w-2/3 border-t border-gray-300/40" />
-          <a
+          <Link
             href="/reservation"
             onClick={() => setMenuOpen(false)}
             className="mx-auto block w-fit rounded-full bg-gradient-to-r from-[#f7f7f7] via-[#d9d9d9] to-[#b5b5b5] px-8 py-3 text-sm font-semibold text-[#15233b] shadow-md shadow-[#d9d9d9]/40 transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-[#d9d9d9]/60"
           >
             Réserver
-          </a>
+          </Link>
         </div>
       )}
     </nav>

@@ -1,6 +1,6 @@
 import React from "react";
+import Image from "next/image";
 import { FaInstagram, FaSnapchatGhost, FaTiktok } from "react-icons/fa";
-
 
 /**
  * Footer Component - Signature by LT
@@ -30,18 +30,24 @@ export default function Footer() {
           </p>
 
           <p className="mt-2 text-sm text-gray-300 leading-relaxed flex items-center">
-            Métro Les Gobelins – 
+            Métro Les Gobelins –
             {/* Logo Métro */}
-            <img
-              src="/assets/icons/metro.svg"
-              alt="Logo Métro"
-              className="w-7 h-7 mx-2 inline"
-            />
+            <span className="mx-2 inline-block">
+              <Image
+                src="/assets/icons/metro.svg"
+                alt="Logo Métro"
+                width={28}
+                height={28}
+                className="h-7 w-7"
+              />
+            </span>
             {/* Logo Ligne 7 */}
-            <img
+            <Image
               src="/assets/icons/ligne_7.svg"
               alt="Ligne 7"
-              className="w-7 h-7 inline"
+              width={28}
+              height={28}
+              className="inline h-7 w-7"
             />
           </p>
 
@@ -61,7 +67,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-gray-300 leading-relaxed">
             <li>
               <a
-                href="/prestation"
+                href="/prestations"
                 className="hover:text-white transition"
               >
                 Prestations
