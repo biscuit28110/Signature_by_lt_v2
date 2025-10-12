@@ -31,7 +31,7 @@ const HeroBanner = () => {
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <a
-            href="#reserver"
+            href="/reservation"
             className="inline-block rounded-full bg-gradient-to-r from-[#f7f7f7] via-[#d9d9d9] to-[#b5b5b5] px-8 py-3 font-semibold text-[#15233b] shadow-lg shadow-[#d9d9d9]/40 transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:shadow-[#d9d9d9]/60"
           >
             Réserver maintenant
