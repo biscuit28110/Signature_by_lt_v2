@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 
 // Déconnexion admin
 export async function POST(_request: NextRequest) {
-  clearSessionCookie();
+  // Suppression du cookie de session (async avec Next 15)
+  await clearSessionCookie();
   return NextResponse.json({ ok: true });
 }

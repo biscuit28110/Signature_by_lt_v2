@@ -7,17 +7,15 @@ import { assertAuthenticated } from "@/lib/adminAuth";
 
 const VIDEO_DIR = path.join(process.cwd(), "public", "assets", "realisations", "video");
 
-type DeleteContext = { params: { filename: string } };
-
 // FIX NEXT 15: runtime explicite Node.js
 export const runtime = "nodejs";
 
-export async function DELETE(_request: NextRequest, { params }: DeleteContext) {
+// Next 15 typage: params est désormais un Promise dans le context
+export async function DELETE(_request: NextRequest, { params }: { params: Promise<{ filename: string }> }) {
   try {
-    // FIX NEXT 15: assertAuthenticated est async → await
     await assertAuthenticated();
 
-    const { filename } = params;
+    const { filename } = await params;
 
     if (!filename) {
       return NextResponse.json({ error: "Nom de fichier manquant" }, { status: 400 });

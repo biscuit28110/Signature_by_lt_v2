@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
     }
 
     const token = await createSession(username);
-    setSessionCookie(token);
+    // Cookie de session côté serveur (async avec Next 15)
+    await setSessionCookie(token);
     recordAttempt(ip, true);
     await appendAccessLog({
       at: Date.now(),

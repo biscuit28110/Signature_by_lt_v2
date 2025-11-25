@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -61,7 +61,8 @@ export default function Testimonials() {
     { label: "Avis clients", value: reviews.length.toString() },
     { label: "Années d’expertise", value: "12+" },
   ];
-  const cardVariants = {
+  // Variants typés pour Framer (ease en cubic-bezier pour satisfaire le typage strict).
+  const cardVariants: Variants = {
     initial: (offset: number) => ({
       opacity: 0,
       x: offset * 220,
@@ -79,7 +80,7 @@ export default function Testimonials() {
       x: offset * -220,
       scale: 0.8,
       rotateY: offset * 15,
-      transition: { duration: 0.35, ease: "easeInOut" },
+      transition: { duration: 0.35, ease: [0.42, 0, 0.58, 1] },
     }),
   };
 

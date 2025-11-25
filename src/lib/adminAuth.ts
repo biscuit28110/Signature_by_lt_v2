@@ -94,8 +94,9 @@ export async function parseSession(token?: string | null) {
 }
 
 // Place le cookie de session
-export function setSessionCookie(token: string) {
-  cookies().set(ADMIN_SESSION_COOKIE, token, {
+export async function setSessionCookie(token: string) {
+  const jar = await cookies();
+  jar.set(ADMIN_SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -105,13 +106,16 @@ export function setSessionCookie(token: string) {
 }
 
 // Supprime le cookie de session
-export function clearSessionCookie() {
-  cookies().delete(ADMIN_SESSION_COOKIE);
+export async function clearSessionCookie() {
+  const jar = await cookies();
+  jar.delete(ADMIN_SESSION_COOKIE);
 }
 
 // Récupère l'utilisateur courant via le cookie (server side)
 export async function getSessionUser() {
-  const token = cookies().get(ADMIN_SESSION_COOKIE)?.value;
+  // cookies() est async en Next 15 → on récupère le jar avant de lire
+  const jar = await cookies();
+  const token = jar.get(ADMIN_SESSION_COOKIE)?.value;
   return parseSession(token);
 }
 
