@@ -23,7 +23,7 @@ const slides: Slide[] = [
   {
     id: "salon-exterieur",
     kind: "image",
-    src: "/assets/realisations/realisation_3/realisation_1.jpg",
+    src: "/assets/media/devanture.webp",
     alt: "Vue extérieure du salon Signature by LT",
   },
   {
@@ -53,6 +53,18 @@ const artisans = [
     name: "Gildas",
     role: "Spécialiste Coloration & Dreadlocks",
     image: "/assets/realisations/realisation_3/realisation_1_2.png",
+  },
+  {
+    id: "dominique",
+    name: "Dominique",
+    role: "Experte Coiffure & Soins Capillaires",
+    image: "/assets/realisations/realisation_2/realisation-2_1.jpeg",
+  },
+  {
+    id: "doga",
+    name: "Doga",
+    role: "Coiffeur & Expert Tresses",
+    image: "/assets/realisations/realisation_2/imgdc.jpeg",
   },
 ];
 
@@ -148,7 +160,8 @@ const AboutPage = () => {
                     alt={activeSlide.alt}
                     fill
                     className="object-cover transition duration-700"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                    quality={95}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 680px"
                     priority={activeSlide.id === slides[0].id}
                   />
                 ) : (

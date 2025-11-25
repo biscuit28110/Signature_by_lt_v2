@@ -1,2 +1,47 @@
 @import "tailwindcss";
 @plugin "daisyui";
+/* === Animation “shine” (reflet glissant) === */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 1.2s linear forwards;
+}
+
+.tarifs-grid {
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .tarifs-grid {
+    justify-content: center;
+  }
+}
+
+.tarifs-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(11, 44, 82, 0.4) transparent;
+}
+
+.tarifs-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tarifs-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tarifs-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(11, 44, 82, 0.4);
+  border-radius: 9999px;
+}
+
+.tarifs-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(11, 44, 82, 0.6);
+}
