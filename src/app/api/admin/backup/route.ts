@@ -11,7 +11,7 @@ export async function GET() {
   try {
     await assertAuthenticated();
     const data = await fs.readFile(CONTENT_PATH);
-    return new NextResponse(data, {
+    return new NextResponse(new Blob([data]), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
