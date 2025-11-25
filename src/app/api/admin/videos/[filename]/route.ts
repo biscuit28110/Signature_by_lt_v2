@@ -7,14 +7,15 @@ import { assertAuthenticated } from "@/lib/adminAuth";
 
 const VIDEO_DIR = path.join(process.cwd(), "public", "assets", "realisations", "video");
 
-// Supprime une vidéo par nom de fichier
 export async function DELETE(
   _request: NextRequest,
-  context: { params: Promise<{ filename: string }> },
+  context: { params: { filename: string } },
 ) {
   try {
     assertAuthenticated();
-    const { filename } = await context.params;
+
+    const { filename } = context.params;
+
     if (!filename) {
       return NextResponse.json({ error: "Nom de fichier manquant" }, { status: 400 });
     }
@@ -22,6 +23,7 @@ export async function DELETE(
     // Empêche les traversals
     const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, "_");
     const targetPath = path.join(VIDEO_DIR, safeName);
+
     await fs.unlink(targetPath);
 
     return NextResponse.json({ ok: true });
