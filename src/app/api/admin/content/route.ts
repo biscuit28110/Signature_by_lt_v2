@@ -1,13 +1,16 @@
 import fs from "fs/promises";
 import path from "path";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { assertAuthenticated } from "@/lib/adminAuth";
 
 const CONTENT_PATH = path.join(process.cwd(), "data", "admin-content.json");
 
+// FIX NEXT 15: runtime explicite Node.js
+export const runtime = "nodejs";
+
 // Lit le JSON de contenu (public : lecture ouverte pour afficher le site)
-export async function GET() {
+export async function GET(_request: NextRequest) {
   try {
     const raw = await fs.readFile(CONTENT_PATH, "utf8");
     const json = JSON.parse(raw);
@@ -18,9 +21,10 @@ export async function GET() {
 }
 
 // Met à jour le JSON de contenu (titres/CTA)
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const user = assertAuthenticated();
+    // FIX NEXT 15: assertAuthenticated est async → await
+    const user = await assertAuthenticated();
     const body = await request.json().catch(() => ({}));
     const { heroTitle, heroSubtitle, ctaPrimary, ctaSecondary } = body as Record<string, unknown>;
 

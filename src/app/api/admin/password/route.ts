@@ -1,10 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { assertAuthenticated, updatePassword, verifyPassword } from "@/lib/adminAuth";
 
+// FIX NEXT 15: runtime explicite Node.js
+export const runtime = "nodejs";
+
 // Changement de mot de passe admin
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
+    // FIX NEXT 15: assertAuthenticated est async → await obligatoire
     const user = await assertAuthenticated();
     const body = await request.json().catch(() => ({}));
     const { currentPassword, newPassword, confirmPassword } = body as Record<string, unknown>;

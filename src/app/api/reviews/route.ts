@@ -1,6 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
+
+// FIX NEXT 15: runtime explicite Node.js
+export const runtime = "nodejs";
 
 type GoogleReview = {
   author_name: string;
@@ -32,7 +35,7 @@ let cachedReviews: Review[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 heures en millisecondes
 
-export async function GET() {
+export async function GET(_request: NextRequest) {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   const placeId = process.env.GOOGLE_PLACE_ID;
 

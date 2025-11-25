@@ -1,19 +1,19 @@
-import { NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
-import {
-  createSession,
-  getAdminUsername,
-  setSessionCookie,
-  verifyPassword,
-} from "@/lib/adminAuth";
+import { createSession, getAdminUsername, setSessionCookie, verifyPassword } from "@/lib/adminAuth";
 import { canAttempt, recordAttempt } from "@/lib/rateLimiter";
 import { appendAccessLog } from "@/lib/adminLogs";
 
+// FIX NEXT 15: forcer le runtime Node.js pour Hostinger
+export const runtime = "nodejs";
+
 // Endpoint de connexion admin
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const ip = headers().get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    // FIX NEXT 15: headers() est async → utilisation avec await et réutilisation
+    const h = await headers();
+    const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     if (!canAttempt(ip)) {
       return NextResponse.json({ error: "Trop de tentatives, réessayez plus tard." }, { status: 429 });
     }
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     await appendAccessLog({
       at: Date.now(),
       ip,
-      ua: headers().get("user-agent") || "unknown",
+      ua: h.get("user-agent") || "unknown",
       user: username,
     });
     return NextResponse.json({ ok: true });

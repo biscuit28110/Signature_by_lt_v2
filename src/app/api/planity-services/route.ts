@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import {
   PLANITY_DEFAULT_CURRENCY,
@@ -15,6 +15,9 @@ const PLANITY_API_KEY =
   process.env.PLANITY_API_KEY ??
   process.env.NEXT_PUBLIC_PLANITY_API_KEY ??
   "";
+
+// FIX NEXT 15: runtime explicite Node.js
+export const runtime = "nodejs";
 
 export const revalidate = 1800; // 30 minutes
 
@@ -202,7 +205,7 @@ const normalizePlanityPayload = (payload: PlanityApiPayload): PlanityPricingCate
   return [];
 };
 
-export async function GET() {
+export async function GET(_request: NextRequest) {
   if (!PLANITY_SERVICES_ENDPOINT) {
     return NextResponse.json({ categories: planityFallbackCategories, source: "fallback" });
   }

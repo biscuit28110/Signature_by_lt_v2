@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { assertAuthenticated } from "@/lib/adminAuth";
 
@@ -8,10 +8,14 @@ const VIDEO_DIR = path.join(process.cwd(), "public", "assets", "realisations", "
 const MAX_SIZE_BYTES = 80 * 1024 * 1024; // 80 Mo
 const ALLOWED_TYPES = ["video/mp4", "video/webm", "video/ogg"];
 
+// FIX NEXT 15: runtime explicite Node.js
+export const runtime = "nodejs";
+
 // Liste les vidéos disponibles
-export async function GET() {
+export async function GET(_request: NextRequest) {
   try {
-    assertAuthenticated();
+    // FIX NEXT 15: assertAuthenticated est async → await
+    await assertAuthenticated();
     const files = await fs.readdir(VIDEO_DIR);
     const videos = files
       .filter((file) => file.match(/\.(mp4|webm|ogg)$/i))
@@ -27,9 +31,10 @@ export async function GET() {
 }
 
 // Upload d'une nouvelle vidéo
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    assertAuthenticated();
+    // FIX NEXT 15: assertAuthenticated est async → await
+    await assertAuthenticated();
     const formData = await request.formData();
     const file = formData.get("file");
     if (!(file instanceof File)) {
@@ -45,7 +50,8 @@ export async function POST(request: Request) {
     }
 
     const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    // FIX NEXT 15: préférer Uint8Array à Buffer pour compat Node runtime
+    const buffer = new Uint8Array(arrayBuffer);
 
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     const timestamp = Date.now();
