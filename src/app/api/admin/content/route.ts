@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { NextResponse } from "next/server";
 
-import { assertAuthenticated, getSessionUser } from "@/lib/adminAuth";
+import { assertAuthenticated } from "@/lib/adminAuth";
 
 const CONTENT_PATH = path.join(process.cwd(), "data", "admin-content.json");
 
@@ -12,7 +12,7 @@ export async function GET() {
     const raw = await fs.readFile(CONTENT_PATH, "utf8");
     const json = JSON.parse(raw);
     return NextResponse.json(json);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Impossible de lire le contenu" }, { status: 500 });
   }
 }

@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type Review = {
   author: string;
@@ -193,12 +194,15 @@ export default function Testimonials() {
                           </div>
                           <div className="relative flex flex-col items-center text-center gap-3">
                             {review.photo ? (
-                              <img
+                              <Image
                                 src={review.photo}
-                                alt={review.author}
+                                alt={review.author || "Client"}
+                                width={64}
+                                height={64}
                                 className={`h-16 w-16 rounded-full object-cover border-2 ${
                                   isActive ? "border-[#0b2c52]/40" : "border-white/40"
                                 }`}
+                                sizes="64px"
                               />
                             ) : (
                               <div
@@ -252,7 +256,14 @@ export default function Testimonials() {
                   aria-label={`Afficher l'avis ${i + 1}`}
                 >
                   {reviews[i]?.photo ? (
-                    <img src={reviews[i]?.photo ?? ""} alt={reviews[i]?.author} className="h-full w-full object-cover" />
+                    <Image
+                      src={reviews[i]?.photo as string}
+                      alt={reviews[i]?.author || "Avis client"}
+                      width={48}
+                      height={48}
+                      className="h-full w-full object-cover"
+                      sizes="48px"
+                    />
                   ) : (
                     <span className="flex h-full w-full items-center justify-center font-semibold">
                       {(reviews[i]?.author?.charAt(0) ?? "?").toUpperCase()}

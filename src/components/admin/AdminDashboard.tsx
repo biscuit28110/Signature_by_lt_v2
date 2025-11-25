@@ -75,7 +75,7 @@ export default function AdminDashboard({ initialContent, initialVideos, currentU
       }
       setContent(json as AdminContent);
       setContentMessage("Contenu enregistré.");
-    } catch (error) {
+    } catch {
       setContentMessage("Erreur réseau.");
     } finally {
       setSavingContent(false);
@@ -177,7 +177,7 @@ export default function AdminDashboard({ initialContent, initialVideos, currentU
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
-    } catch (error) {
+    } catch {
       setVideoMessage("Erreur réseau.");
     } finally {
       setUploading(false);
@@ -197,7 +197,7 @@ export default function AdminDashboard({ initialContent, initialVideos, currentU
       }
       setVideos((prev) => prev.filter((video) => video.name !== name));
       setVideoMessage("Vidéo supprimée.");
-    } catch (error) {
+    } catch {
       setVideoMessage("Erreur réseau.");
     }
   };
@@ -394,7 +394,7 @@ export default function AdminDashboard({ initialContent, initialVideos, currentU
           <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#0b2c52]/70">Journal</p>
-              <h2 className="text-lg font-semibold text-[#0b2c52]">Logs d'accès & Sauvegardes</h2>
+              <h2 className="text-lg font-semibold text-[#0b2c52]">Logs d&apos;accès & Sauvegardes</h2>
               <p className="text-sm text-[#0b2c52]/70">
                 Dates, IP et navigateurs des connexions. Téléchargez une sauvegarde JSON du contenu.
               </p>

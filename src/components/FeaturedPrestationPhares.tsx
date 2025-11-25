@@ -91,7 +91,7 @@ function SignatureVideoCard({ video, index, isActive }: { video: SignatureVideo;
   }, [isInView, shouldPlay]);
 
   const togglePlay = () => {
-    setPlayMode((prev) => {
+    setPlayMode(() => {
       if (shouldPlay) return "userPause";
       return "userPlay";
     });
