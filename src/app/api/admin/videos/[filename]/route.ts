@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { assertAuthenticated } from "@/lib/adminAuth";
@@ -8,12 +9,12 @@ const VIDEO_DIR = path.join(process.cwd(), "public", "assets", "realisations", "
 
 // Supprime une vidéo par nom de fichier
 export async function DELETE(
-  _request: Request,
-  { params }: { params: { filename?: string } },
+  _request: NextRequest,
+  context: { params: Promise<{ filename: string }> },
 ) {
   try {
     assertAuthenticated();
-    const filename = params.filename;
+    const { filename } = await context.params;
     if (!filename) {
       return NextResponse.json({ error: "Nom de fichier manquant" }, { status: 400 });
     }
