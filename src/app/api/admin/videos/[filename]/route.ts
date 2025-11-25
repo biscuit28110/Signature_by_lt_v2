@@ -7,14 +7,13 @@ import { assertAuthenticated } from "@/lib/adminAuth";
 
 const VIDEO_DIR = path.join(process.cwd(), "public", "assets", "realisations", "video");
 
-export async function DELETE(
-  _request: NextRequest,
-  context: { params: { filename: string } },
-) {
+type DeleteContext = { params: Promise<{ filename: string }> };
+
+export async function DELETE(_request: NextRequest, { params }: DeleteContext) {
   try {
     assertAuthenticated();
 
-    const { filename } = context.params;
+    const { filename } = await params;
 
     if (!filename) {
       return NextResponse.json({ error: "Nom de fichier manquant" }, { status: 400 });
