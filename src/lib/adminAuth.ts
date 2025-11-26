@@ -22,6 +22,29 @@ export function hashPasswordWithSalt(password: string, salt: string) {
   return crypto.scryptSync(password, salt, 64).toString("hex");
 }
 
+// Permet d'imposer les identifiants via les variables d'environnement (même en dev/prod).
+function getEnvAuth(): AdminAuthState | null {
+  const username = process.env.ADMIN_USERNAME;
+  const sessionSecret = process.env.ADMIN_SESSION_SECRET;
+  const salt = process.env.ADMIN_PASSWORD_SALT || "signature-salt-2024";
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!username || !sessionSecret) return null;
+  if (passwordHash) {
+    return { username, passwordHash, salt, sessionSecret };
+  }
+  if (password) {
+    return {
+      username,
+      passwordHash: hashPasswordWithSalt(password, salt),
+      salt,
+      sessionSecret,
+    };
+  }
+  return null;
+}
+
 // Initialise le fichier d'auth s'il n'existe pas (fallback sur variables d'env)
 async function ensureAuthFile() {
   try {
@@ -41,6 +64,10 @@ async function ensureAuthFile() {
 
 // Lit le fichier d'auth
 async function readAuthFile(): Promise<AdminAuthState> {
+  // Si la config est fournie via l'env, on la privilégie pour garantir les mêmes identifiants partout.
+  const envAuth = getEnvAuth();
+  if (envAuth) return envAuth;
+
   await ensureAuthFile();
   const raw = await fs.readFile(AUTH_PATH, "utf8");
   return JSON.parse(raw) as AdminAuthState;
@@ -48,6 +75,12 @@ async function readAuthFile(): Promise<AdminAuthState> {
 
 // Met à jour le mot de passe (hash + sel)
 export async function updatePassword(newPassword: string) {
+  const envAuth = getEnvAuth();
+  // On bloque la mise à jour si les identifiants sont forcés par l'environnement.
+  if (envAuth) {
+    throw new Error("env-managed");
+  }
+
   const current = await readAuthFile();
   const salt = crypto.randomBytes(16).toString("hex");
   const passwordHash = hashPasswordWithSalt(newPassword, salt);

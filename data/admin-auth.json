@@ -1,6 +1,6 @@
 {
   "username": "admin",
-  "passwordHash": "a22cdf458e981d6e8da7ea344489d73e425cfe2186d38fd8137f4e1b8a44e182a2bc7424e38e5514342c158c20f2eb4f2ea8a942aa04ff4fe3bdc4f13e29c89e",
+  "passwordHash": "78a355eaceb6f14f9750d20e1b48d6f7e17cbb1e8c9f16fd8133be80f96429d23b36dc45a2d232a42d77c02dd68a3a242af4c147e7b2aa924bd9812664fe3f01",
   "salt": "signature-salt-2024",
   "sessionSecret": "change-me-admin-session-secret"
 }

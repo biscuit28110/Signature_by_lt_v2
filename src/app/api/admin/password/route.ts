@@ -29,7 +29,17 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ ok: true, user });
   } catch (error) {
-    const status = (error as Error)?.message === "unauthorized" ? 401 : 500;
+    const message = (error as Error)?.message;
+    if (message === "env-managed") {
+      return NextResponse.json(
+        {
+          error:
+            "Mot de passe géré via les variables d'environnement (ADMIN_PASSWORD ou ADMIN_PASSWORD_HASH). Mettez à jour ces variables pour changer l'accès.",
+        },
+        { status: 400 },
+      );
+    }
+    const status = message === "unauthorized" ? 401 : 500;
     return NextResponse.json({ error: "Impossible de changer le mot de passe" }, { status });
   }
 }
